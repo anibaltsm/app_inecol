@@ -4,7 +4,7 @@ import PrivateRoute from './components/Auth/PrivateRoute';
 import Login from './components/Auth/Login';
 import Dashboard from './pages/Dashboard';
 import Tables from './pages/Tables';
-import ApiTest from './pages/ApiTest';
+import ApiTest from './pages/TestConnection.js';
 import Navbar from './components/Layout/Navbar';
 import Sidebar from './components/Layout/Sidebar';
 

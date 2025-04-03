@@ -1,18 +1,40 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api/'; // Cambia esto por tu URL de API PHP
+const API_URL = 'http://localhost:8000/api/';
 
-export const login = async (username, password) => {
-  const response = await axios.post(`${API_URL}login.php`, {
-    username,
-    password
-  });
-  
-  if (response.data.token) {
-    localStorage.setItem('user', JSON.stringify(response.data));
+// Configuración global de axios para manejar errores
+axios.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response) {
+      // Error del servidor (4xx, 5xx)
+      return Promise.reject(error.response.data);
+    } else if (error.request) {
+      // La petición fue hecha pero no hubo respuesta
+      return Promise.reject({ message: 'No se recibió respuesta del servidor' });
+    } else {
+      // Error al hacer la petición
+      return Promise.reject({ message: 'Error al configurar la petición' });
+    }
   }
-  
-  return response.data;
+);
+
+// src/services/auth-service.js (versión mock)
+export const login = async (username, password) => {
+  // Validación directa en el frontend
+  if (username === 'admin' && password === 'admin') {
+    const mockUser = {
+      success: true,
+      token: 'mock-token-' + Math.random().toString(36).substring(2),
+      user: {
+        username: 'admin',
+        role: 'admin'
+      }
+    };
+    localStorage.setItem('user', JSON.stringify(mockUser));
+    return mockUser;
+  }
+  throw new Error('Credenciales incorrectas');
 };
 
 export const logout = () => {
@@ -20,5 +42,6 @@ export const logout = () => {
 };
 
 export const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem('user'));
+  const user = localStorage.getItem('user');
+  return user ? JSON.parse(user) : null;
 };
