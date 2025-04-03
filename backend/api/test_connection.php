@@ -10,7 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit(0);
 }
 
-require_once 'Database.php';
+require_once __DIR__ . '/../database.php'; // O ajusta la ruta según sea necesario
+
 
 $response = [];
 $statusCode = 200;

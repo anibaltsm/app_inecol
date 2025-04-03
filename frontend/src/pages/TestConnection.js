@@ -20,7 +20,7 @@ const TestConnection = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('http://localhost:8000/api/test_connection.php', {
+      const response = await axios.get('http://localhost:8003/api/test_connection.php', {
         timeout: 5000 // 5 segundos de timeout
       });
       setTestResult(response.data);
