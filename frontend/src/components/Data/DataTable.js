@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import { getCurrentUser } from '../../services/auth-service';
 
 function DataTable() {
-  const [data, setData] = useState([
-    { id: 1, nombre: 'Producto A', precio: 100, stock: 20 },
-    { id: 2, nombre: 'Producto B', precio: 200, stock: 15 },
-    { id: 3, nombre: 'Producto C', precio: 300, stock: 10 }
-  ]);
-  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-/*   useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const user = getCurrentUser();
-        const response = await axios.get('http://localhost:8000/api/data.php', {
+        const user = getCurrentUser();  // Obtén el usuario actual (y el token, si es necesario)
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/productos.php`, {
           headers: {
-            'Authorization': `Bearer ${user.token}`
-          }
+            'Authorization': `Bearer ${user.token}`,  // Si tu API requiere autenticación
+          },
         });
-        setData(response.data);
+        setData(response.data.data);  // Asigna los productos obtenidos
       } catch (error) {
+        setError('Error al obtener los datos');
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
@@ -29,9 +29,23 @@ function DataTable() {
     };
 
     fetchData();
-  }, []); */
+  }, []);  // Este efecto se ejecuta solo una vez cuando el componente se monta
 
-  if (loading) return <div>Cargando...</div>;
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   return (
     <TableContainer component={Paper}>

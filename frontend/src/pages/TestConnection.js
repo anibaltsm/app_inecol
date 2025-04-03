@@ -15,12 +15,11 @@ const TestConnection = () => {
   const [testResult, setTestResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const testConnection = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('http://localhost:8003/api/test_connection.php', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/test_connection.php`, {
         timeout: 5000 // 5 segundos de timeout
       });
       setTestResult(response.data);

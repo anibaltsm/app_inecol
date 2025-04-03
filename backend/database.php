@@ -4,7 +4,7 @@ class Database {
     private $port = 3306; 
     private $db_name = "sce";
     private $username = "root"; 
-    private $password = "";
+    private $password = "Alucard21";
     public $conn;
 
     // Nuevos métodos getter
