@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import axios from 'axios';
-
 import { getCurrentUser } from '../../services/auth-service';
-function DataTable() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+function DataTable() {
+  const [data, setData] = useState([
+    { id: 1, nombre: 'Producto A', precio: 100, stock: 20 },
+    { id: 2, nombre: 'Producto B', precio: 200, stock: 15 },
+    { id: 3, nombre: 'Producto C', precio: 300, stock: 10 }
+  ]);
+  const [loading, setLoading] = useState(false);
+
+/*   useEffect(() => {
     const fetchData = async () => {
       try {
         const user = getCurrentUser();
@@ -25,7 +29,7 @@ function DataTable() {
     };
 
     fetchData();
-  }, []);
+  }, []); */
 
   if (loading) return <div>Cargando...</div>;
 

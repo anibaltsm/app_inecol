@@ -21,7 +21,7 @@ function Login() {
 
   return (
     <Box sx={{ maxWidth: 400, mx: 'auto', mt: 10 }}>
-      <Typography variant="h4" gutterBottom>Iniciar Sesión</Typography>
+      <Typography variant="h4" gutterBottom>Iniciar ssssSesión</Typography>
       {error && <Typography color="error">{error}</Typography>}
       <form onSubmit={handleSubmit}>
         <TextField

@@ -1,7 +1,7 @@
 <?php
 class Database {
     // Configuración para conexión directa
-    private $host = "189.240.218.38"; // IP pública del servidor
+    private $host = "192.168.2.138"; // IP pública del servidor
     private $port = 3306;             // Puerto MySQL
     private $db_name = "sce";
     private $username = "root";       // Considera usar un usuario no root
